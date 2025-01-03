@@ -30,3 +30,12 @@ if user_choice == "E":
 
  # function to decode
  # def decode_from_morse():
+
+ def encode_to_morse(text):
+    morse_code = ""
+    for letter in text:
+        if letter != " ":
+            morse_code += MORSE_CODE_DICT[letter] + " "
+        else:
+            morse_code += " "
+    return morse_code
