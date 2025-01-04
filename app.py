@@ -28,6 +28,14 @@ MORSE_CODE_DICT = {**letters, **numbers, **symbols}
 user_choice = input("TYPE 'E' for encode or 'D' for decode: ").upper()
 if user_choice == "E":
    user_text = input("Enter the text you want to convert to morse code: ").upper()
+   morse_code = " "
    for char in user_text:
        if char in MORSE_CODE_DICT:
-           print(MORSE_CODE_DICT[char], end=" ")
+           morse_code += MORSE_CODE_DICT[char] + " "
+       elif " " in user_text:
+           morse_code += "/ "
+        
+       else:
+           print(f"Error you have entered an invalid character: {char}")
+
+    
