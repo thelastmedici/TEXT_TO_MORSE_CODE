@@ -17,25 +17,17 @@ symbols = {'.': '.-.-.-', ',': '--..--', '?': '..--..', '!': '-.-.--',
             '&': '.-...', ':': '---...', ';': '-.-.-.', '=': '-...-',
             '+': '.-.-.', '-': '-....-', '_': '..--.-', '"': '.-..-.',
             '$': '...-..-', '@': '.--.-.'}
+# function to encode
+# 
+
+ #function to decode
+ # #def decode_from_morse():
 
 MORSE_CODE_DICT = {**letters, **numbers, **symbols}
 # ask for what user wants to do
 user_choice = input("TYPE 'E' for encode or 'D' for decode: ").upper()
 if user_choice == "E":
    user_text = input("Enter the text you want to convert to morse code: ").upper()
-# function to encode
-# def encode_to_morse():
-#    user_text = input("Enter the text you want to convert to morse: ").upper()
-#    morse_code = ""
-
- # function to decode
- # def decode_from_morse():
-
- def encode_to_morse(text):
-    morse_code = ""
-    for letter in text:
-        if letter != " ":
-            morse_code += MORSE_CODE_DICT[letter] + " "
-        else:
-            morse_code += " "
-    return morse_code
+   for char in user_text:
+       if char in MORSE_CODE_DICT:
+           print(MORSE_CODE_DICT[char], end=" ")
