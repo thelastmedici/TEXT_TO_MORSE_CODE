@@ -17,58 +17,50 @@ symbols = {'.': '.-.-.-', ',': '--..--', '?': '..--..', '!': '-.-.--',
             '&': '.-...', ':': '---...', ';': '-.-.-.', '=': '-...-',
             '+': '.-.-.', '-': '-....-', '_': '..--.-', '"': '.-..-.',
             '$': '...-..-', '@': '.--.-.'}
-# function to encode
-# 
-
- #function to decode
- # #def decode_from_morse():
 
 MORSE_CODE_DICT = {**letters, **numbers, **symbols}
-# # ask for what user wants to do
-# def encode_to_morse():
-#     """A function that converts a string to morse code"""
-
-#     user_choice = input("TYPE 'E' for encode or 'D' for decode: ").upper()
-#     if user_choice == "E":
-#         user_text = input("Enter the text you want to convert to morse code: ").upper()
-#         morse_code = " "
-#         for char in user_text:
-#             if char in MORSE_CODE_DICT:
-#                 morse_code += MORSE_CODE_DICT[char] + " "
-#             elif " " in user_text:
-#                 morse_code += "/ "
-#             else:
-#                 return f"Error you have entered an invalid character: {char}"
-
-#     return f"The morse code for the given text is: {morse_code.strip()}"
-
-
-#Reversal of morse_code dictionary from the original dictionary
 REVERSED_MORSE_DICT = {}
 for char, morse in MORSE_CODE_DICT.items():
     REVERSED_MORSE_DICT[morse] = char
-print(REVERSED_MORSE_DICT)
-##loop througn each key value pair in the original dictionary
-##Add the Morse code (value) as the key in the new dictionary.
-##Add the character (key) as the value in the new dictionary.
+
+def encode_to_morse():
+    """A function that converts a string to Morse code."""
+    user_text = input("Enter the text you want to convert to Morse code: ").upper()
+    morse_code = ""
+    for chars in user_text:
+        if chars in MORSE_CODE_DICT:
+            morse_code += MORSE_CODE_DICT[chars] + " "
+        elif chars == " ":
+            morse_code += "/ "  # Add a slash for spaces between words
+        else:
+            return f"Error: You have entered an invalid character: {chars}"
+
+    return f"The Morse code for the given text is: {morse_code.strip()}"
 
 
-# if user_choice == "D":
-#    user_text = input("Enter the morse code you want to convert to text: ")
-#    user_text += " "
-#    text = ""
-#    code = ""
-#    for char in user_text:
-#        if char != " ":
-#            i = 0
-#            code += char
-#        else:
-#            i += 1
-#            if i == 2:
-#                text += " "
-#            else:
-#                text += list(MORSE_CODE_DICT.keys())[list(MORSE_CODE_DICT.values()).index(code)]
-#                code = ""
-#    print(f"The text for the given morse code is: {text}")
+def decode_from_morse():
+    """A function that converts morse codes to text"""
+    morse_text = input("Enter the morse code for the given text").strip()
+    if not morse_text:
+        return "No morse code provided"
+    text = ""
+    words = morse_text.split(" / ")
+    for word in words:
+        for morse_code in word.split(" "):
+            if morse_code in REVERSED_MORSE_DICT:
+                text += REVERSED_MORSE_DICT[morse_code]
+            else:
+                return f"Error: Invalid morse code: {morse_code}"
+            text += " "
+    return text.strip()
+
+# function to encode
+user_choice = input("TYPE 'E' for encode or 'D' for decode: ").upper()
+if user_choice == 'E':
+    encode_to_morse()
+elif user_choice == 'D':
+    decode_from_morse()
+else:
+    print("Invalid choice. Please try again.")
 
     
