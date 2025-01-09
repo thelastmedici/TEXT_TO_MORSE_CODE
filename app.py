@@ -20,6 +20,7 @@ symbols = {'.': '.-.-.-', ',': '--..--', '?': '..--..', '!': '-.-.--',
 
 MORSE_CODE_DICT = {**letters, **numbers, **symbols}
 REVERSED_MORSE_DICT = {}
+game_on= True
 for char, morse in MORSE_CODE_DICT.items():
     REVERSED_MORSE_DICT[morse] = char
 
@@ -54,13 +55,16 @@ def decode_from_morse():
             text += " "
     return text.strip()
 
-# function to encode
-user_choice = input("TYPE 'E' for encode or 'D' for decode: ").upper()
-if user_choice == 'E':
-    encode_to_morse()
-elif user_choice == 'D':
-    decode_from_morse()
-else:
-    print("Invalid choice. Please try again.")
+while game_on:
+    user_choice = input("TYPE 'E' for encode or 'D' for decode: ").upper()
+    if user_choice == 'E':
+        print(encode_to_morse())
+    elif user_choice == 'D':
+        print(decode_from_morse())
+    elif user_choice == 'Q':
+        print("Goodbye!")
+        break
+    else:
+        print("Invalid choice. Please try again.")
 
     
