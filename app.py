@@ -19,19 +19,19 @@ def morse_converter():
                 '+': '.-.-.', '-': '-....-', '_': '..--.-', '"': '.-..-.',
                 '$': '...-..-', '@': '.--.-.'}
 
-    MORSE_CODE_DICT = {**letters, **numbers, **symbols}
-    REVERSED_MORSE_DICT = {}
-    game_on= True
-    for char, morse in MORSE_CODE_DICT.items():
-        REVERSED_MORSE_DICT[morse] = char
+    morse_code_dict = {**letters, **numbers, **symbols}
+    reversed_morse_dict= {}
+    
+    for char, morse in morse_code_dict.items():
+        reversed_morse_dict[morse] = char
 
     def encode_to_morse():
         """A function that converts a string to Morse code."""
         user_text = input("Enter the text you want to convert to Morse code: ").upper()
         morse_code = ""
         for chars in user_text:
-            if chars in MORSE_CODE_DICT:
-                morse_code += MORSE_CODE_DICT[chars] + " "
+            if chars in morse_code_dict:
+                morse_code += morse_code_dict[chars] + " "
             elif chars == " ":
                 morse_code += "/ "  # Add a slash for spaces between words
             else:
@@ -49,8 +49,8 @@ def morse_converter():
         words = morse_text.split(" / ")
         for word in words:
             for morse_code in word.split(" "):
-                if morse_code in REVERSED_MORSE_DICT:
-                    text += REVERSED_MORSE_DICT[morse_code]
+                if morse_code in reversed_morse_dict:
+                    text += reversed_morse_dict[morse_code]
                 else:
                     return f"Error: Invalid morse code: {morse_code}"
                 text += " "
@@ -58,7 +58,7 @@ def morse_converter():
     print("Welcome to my Morse code converter app!\n")
     print("Enter 'Q' to quit at any time.")
 
-    while game_on:
+    while True:
         user_choice = input("TYPE 'E' for encode or 'D' for decode: ").upper()
         if user_choice == 'E':
             print(encode_to_morse())
@@ -70,7 +70,6 @@ def morse_converter():
         else:
             print("Invalid choice. Please try again.") 
 
+
 if __name__ == '__main__':
     morse_converter()
-
-        
