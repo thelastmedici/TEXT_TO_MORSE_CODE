@@ -1,29 +1,50 @@
+from playsound import playsound
+import time
+
+
 def morse_converter():
     """
         This program provides functionality to convert text to morse code and vice versa.
     """
-    
 
     # create a dictionary for morse code
     letters = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
-                'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
-                'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
-                'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
-                'Y': '-.--', 'Z': '--..'}
+               'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
+               'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
+               'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+               'Y': '-.--', 'Z': '--..'}
     numbers = {'1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....',
-                '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----'}
+               '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----'}
 
     symbols = {'.': '.-.-.-', ',': '--..--', '?': '..--..', '!': '-.-.--',
-                '/': '-..-.', '()': '-.--.-',
-                '&': '.-...', ':': '---...', ';': '-.-.-.', '=': '-...-',
-                '+': '.-.-.', '-': '-....-', '_': '..--.-', '"': '.-..-.',
-                '$': '...-..-', '@': '.--.-.'}
+               '/': '-..-.', '()': '-.--.-',
+               '&': '.-...', ':': '---...', ';': '-.-.-.', '=': '-...-',
+               '+': '.-.-.', '-': '-....-', '_': '..--.-', '"': '.-..-.',
+               '$': '...-..-', '@': '.--.-.'}
 
     morse_code_dict = {**letters, **numbers, **symbols}
-    reversed_morse_dict= {}
-    
+    reversed_morse_dict = {}
+
     for char, morse in morse_code_dict.items():
         reversed_morse_dict[morse] = char
+
+    def play_morse_audio(morse_code):
+        """
+        Plays the Morse code as audio using the playsound library.
+        A dot (.) plays 'dot.mp3', a dash (-) plays 'dash.mp3',
+        and spaces represent pauses.
+        """
+        for char in morse_code:
+            if char == ".":
+                playsound("dot.mp3")  # Play the dot sound
+            elif char == "-":
+                playsound("dash.mp3")  # Play the dash sound
+            elif char == " ":
+                time.sleep(0.2)  # Short pause between parts of the same letter
+            elif char == "/":
+                time.sleep(0.6)  # Longer pause between words
+            else:
+                continue  # Ignore invalid characters
 
     def encode_to_morse():
         """A function that converts a string to Morse code."""
@@ -37,12 +58,13 @@ def morse_converter():
             else:
                 return f"Error: You have entered an invalid character: {chars}"
 
-        return f"The Morse code for the given text is: {morse_code.strip()}"
-
+        print(f"The Morse code for the given text is: {morse_code.strip()}")
+        play_morse_audio(morse_code.strip())
+        return morse_code.strip()
 
     def decode_from_morse():
         """A function that converts morse codes to text"""
-        morse_text = input("Enter the morse code for the given text").strip()
+        morse_text = input("Enter the morse code for the given text: ").strip()
         if not morse_text:
             return "No morse code provided"
         text = ""
@@ -53,22 +75,23 @@ def morse_converter():
                     text += reversed_morse_dict[morse_code]
                 else:
                     return f"Error: Invalid morse code: {morse_code}"
-                text += " "
+            text += " "
         return text.strip()
+
     print("Welcome to my Morse code converter app!\n")
     print("Enter 'Q' to quit at any time.")
 
     while True:
         user_choice = input("TYPE 'E' for encode or 'D' for decode: ").upper()
         if user_choice == 'E':
-            print(encode_to_morse())
+            encode_to_morse()
         elif user_choice == 'D':
             print(decode_from_morse())
         elif user_choice == 'Q':
             print("Goodbye!")
             break
         else:
-            print("Invalid choice. Please try again.") 
+            print("Invalid choice. Please try again.")
 
 
 if __name__ == '__main__':
